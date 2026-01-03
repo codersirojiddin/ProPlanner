@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProTask | Premium To-Do App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fas fa-layer-group"></i>
+                <span>ProTask</span>
+            </div>
+
+            <div class="folder-header">
+                <h3>Folders</h3>
+                <button id="add-folder-btn" title="Add Folder"><i class="fas fa-plus"></i></button>
+            </div>
+
+            <ul id="folder-list">
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div id="no-selection" class="empty-state">
+                <i class="fas fa-folder-open"></i>
+                <p>Select or create a folder to start</p>
+            </div>
+
+            <div id="task-section" class="hidden">
+                <header class="task-header">
+                    <h2 id="current-folder-title">Folder Name</h2>
+                    <div class="task-input-group">
+                        <input type="text" id="task-input" placeholder="Add a new task...">
+                        <button id="add-task-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </header>
+
+                <ul id="task-list">
+                </ul>
+            </div>
+        </main>
+    </div>
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 id="modal-title">New Item</h3>
+            <input type="text" id="modal-input" placeholder="Type here...">
+            <div class="modal-actions">
+                <button id="modal-cancel">Cancel</button>
+                <button id="modal-save">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,286 @@
+/* --- Global Variables & Reset --- */
+:root {
+    --bg-color: #f3f4f6;
+    --sidebar-bg: #ffffff;
+    --accent-color: #4f46e5;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* --- App Container --- */
+.app-container {
+    width: 95%;
+    max-width: 1100px;
+    height: 85vh;
+    background: white;
+    display: flex;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+/* --- Sidebar & Folder Styles --- */
+.sidebar {
+    width: 320px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid #e5e7eb;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+#add-folder-btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#add-folder-btn:hover { transform: scale(1.1); background: #4338ca; }
+
+#folder-list { list-style: none; overflow-y: auto; flex: 1; }
+
+.folder-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-muted);
+}
+
+.folder-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+}
+
+.folder-item:hover, .folder-item.active {
+    background: #eef2ff;
+    color: var(--accent-color);
+}
+
+/* Folder Control Buttons (Edit/Delete) */
+.folder-ctrls {
+    display: none; /* Faqat hover bo'lganda ko'rinadi */
+    gap: 8px;
+}
+
+.folder-item:hover .folder-ctrls { display: flex; }
+
+.folder-ctrls button {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.folder-ctrls button:hover { transform: scale(1.2); color: var(--accent-color); }
+.folder-ctrls .f-delete:hover { color: var(--danger); }
+
+/* --- Main Content & Task Styles --- */
+.main-content {
+    flex: 1;
+    padding: 3rem;
+    background: #fafafa;
+    overflow-y: auto;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+}
+
+.empty-state i { font-size: 4rem; margin-bottom: 1rem; opacity: 0.3; }
+
+.task-header h2 { font-size: 2.2rem; color: var(--text-main); margin-bottom: 1.5rem; }
+
+.task-input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 2.5rem;
+}
+
+#task-input {
+    flex: 1;
+    padding: 16px 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+#task-input:focus { border-color: var(--accent-color); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
+
+#add-task-btn {
+    padding: 0 25px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: 0.2s;
+}
+
+/* Task Item Card */
+.task-item {
+    background: white;
+    padding: 18px 24px;
+    border-radius: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.task-text { flex: 1; font-weight: 600; color: var(--text-main); font-size: 1.05rem; }
+
+/* Status Backgrounds */
+.task-item.completed { background-color: #ecfdf5; border-color: var(--success); }
+.task-item.failed { background-color: #fef2f2; border-color: var(--danger); }
+
+/* Task Action Buttons */
+.task-actions { display: flex; gap: 10px; }
+
+.task-actions button {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+    background: #f9fafb;
+}
+
+.check-btn { color: var(--success); }
+.fail-btn { color: var(--warning); }
+.edit-btn { color: var(--info); }
+.delete-btn { color: var(--danger); }
+
+.task-actions button:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); background: white; }
+
+/* --- Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-content h3 { margin-bottom: 1.5rem; color: var(--text-main); }
+
+#modal-input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    outline: none;
+}
+
+.modal-actions { display: flex; gap: 10px; }
+
+.modal-actions button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+#modal-cancel { background: #f3f4f6; color: var(--text-muted); }
+#modal-save { background: var(--accent-color); color: white; }
+
+/* --- Utils --- */
+.hidden { display: none !important; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalPop {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
